@@ -3,6 +3,7 @@ package ch01.ex;
 import java.util.Random;
 import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Lottery {
     public static void main(String[] args) {
@@ -18,6 +19,7 @@ public class Lottery {
             Integer removed = lst.remove(rand);
             res.add(removed);
         }
+        Collections.sort(res);
         System.out.println(res);
     }
 }
