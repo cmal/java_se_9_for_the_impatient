@@ -41,7 +41,18 @@ JAVA = java
 
 CLASSES = \
 	ch01/sec01/HelloWorld.java \
-	ch01/sec01/MethodDemo.java
+	ch01/sec01/MethodDemo.java \
+	ch01/ex/ReadInteger.java \
+	ch01/ex/ReadIntegerAngle.java \
+	ch01/ex/PrintMax.java \
+	ch01/ex/PrintMaxMath.java \
+	ch01/ex/PrintPosDoubleRange.java \
+	ch01/ex/Factorial.java \
+	ch01/ex/ComputeUnsign.java \
+	ch01/ex/PrintSubs.java \
+	ch01/ex/EqualStr.java \
+	ch01/ex/RandLong.java \
+	ch01/ex/RemoveASCII.java
 
 
 #
@@ -67,7 +78,7 @@ classes: $(CLASSES:.java=.class)
 #
 
 clean:
-	$(RM) *.class
+	$(RM) $(CLASSES:.java=.class)
 
 
 dot:=.
