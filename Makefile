@@ -52,7 +52,8 @@ CLASSES = \
 	ch01/ex/PrintSubs.java \
 	ch01/ex/EqualStr.java \
 	ch01/ex/RandLong.java \
-	ch01/ex/RemoveASCII.java
+	ch01/ex/RemoveASCII.java \
+	ch01/ex/Lottery.java
 
 
 #
