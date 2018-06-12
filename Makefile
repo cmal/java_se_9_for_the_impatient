@@ -56,7 +56,10 @@ CLASSES = \
 	ch01/ex/Lottery.java \
 	ch01/ex/PascalTriangle.java \
 	ch01/ex/MagicSquare.java \
-	ch02/ex/ChangeCalendar.java
+	ch02/ex/ChangeCalendar.java \
+	ch02/ex/NextInt.java \
+	ch02/ex/NonVoidMutator.java \
+	ch02/ex/SwapInt.java
 
 
 #
