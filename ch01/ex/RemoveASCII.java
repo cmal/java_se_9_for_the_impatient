@@ -11,8 +11,10 @@ public class RemoveASCII {
         String inStr = in.nextLine();
 
         for (char c : inStr.toCharArray()) {
-            // TODO
-            System.out.println(c);
+            if (256 >= (int)c) {
+                continue;
+            }
+            System.out.printf("%c : %d\n", c, (int)c);
         }
     }
 }
