@@ -1,7 +1,10 @@
 package ch02.ex;
 
-import java.lang.Integer;
-
+/**
+ * Immutable Point
+ *
+ * @author Yu Zhao
+ */
 public class Point {
     private final double x, y;
 
@@ -10,27 +13,47 @@ public class Point {
         this.y = 0;
     }
 
+    /**
+     * @param x X coordinate of point
+     * @param y Y coordinate of point
+     */
     Point (double x, double y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * @return X coordinate of point.
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * @return Y coordinate of point.
+     */
     public double getY() {
         return y;
     }
     
+    /**
+     * @param x X coordinate of point.
+     * @param y Y coordinate of point.
+     */
     public Point translate(double x, double y) {
         return new Point(x, y);
     }
 
+    /**
+     * @param scale scale to multiply to X and Y coordinate of point.
+     */
     public Point scale(double scale) {
         return new Point(scale * x, scale * y);
     }
 
+    /**
+     * @return the string representation of point.
+     */
     public String toString() {
         return new String("Point: x=" + x + ", y=" + y);
     }

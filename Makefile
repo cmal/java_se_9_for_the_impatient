@@ -61,7 +61,9 @@ CLASSES = \
 	ch02/ex/NonVoidMutator.java \
 	ch02/ex/SwapInt.java \
 	ch02/ex/Point.java \
-	ch02/ex/PointMut.java
+	ch02/ex/PointMut.java \
+	ch02/ex/Car.java \
+	ch02/ex/RandomNumber.java
 
 
 #
