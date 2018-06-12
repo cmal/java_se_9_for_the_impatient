@@ -63,7 +63,8 @@ CLASSES = \
 	ch02/ex/Point.java \
 	ch02/ex/PointMut.java \
 	ch02/ex/Car.java \
-	ch02/ex/RandomNumber.java
+	ch02/ex/RandomNumber.java \
+	ch02/ex/ChangeCalendarStatic.java
 
 
 #
