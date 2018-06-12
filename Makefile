@@ -54,7 +54,8 @@ CLASSES = \
 	ch01/ex/RandLong.java \
 	ch01/ex/RemoveASCII.java \
 	ch01/ex/Lottery.java \
-	ch01/ex/PascalTriangle.java
+	ch01/ex/PascalTriangle.java \
+	ch01/ex/MagicSquare.java
 
 
 #
