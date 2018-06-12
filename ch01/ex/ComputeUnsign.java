@@ -11,7 +11,6 @@ public class ComputeUnsign {
         System.out.print("Second integer from 0 and 4294967295: ");
         int second = Integer.parseUnsignedInt(in.nextLine());
 
-        // TODO
         int usum = first + second;
         int udiff = first - second;
         int uprod = first * second;
