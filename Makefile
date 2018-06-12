@@ -59,7 +59,8 @@ CLASSES = \
 	ch02/ex/ChangeCalendar.java \
 	ch02/ex/NextInt.java \
 	ch02/ex/NonVoidMutator.java \
-	ch02/ex/SwapInt.java
+	ch02/ex/SwapInt.java \
+	ch02/ex/Point.java
 
 
 #
