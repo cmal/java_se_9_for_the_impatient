@@ -65,7 +65,9 @@ CLASSES = \
 	ch02/ex/Car.java \
 	ch02/ex/RandomNumber.java \
 	ch02/ex/ChangeCalendarStatic.java \
-	ch02/ex/CSV.java
+	ch02/ex/CSV.java \
+	ch02/ex/Network.java \
+	ch02/ex/Invoice.java
 
 
 #
