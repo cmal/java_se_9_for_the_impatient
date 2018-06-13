@@ -71,7 +71,10 @@ CLASSES = \
 	ch02/ex/Queue.java \
 	ch03/ex/Employee.java \
 	ch03/ex/IntegerSequence.java \
-	ch03/ex/SquareSequence.java
+	ch03/ex/SquareSequence.java \
+	ch03/ex/DigitSequence.java \
+	ch03/ex/Lucky.java \
+	ch03/ex/Greeter.java
 
 
 #
