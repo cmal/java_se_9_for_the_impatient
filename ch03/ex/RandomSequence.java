@@ -6,17 +6,25 @@ public class RandomSequence{
 
     private static Random generator = new Random();
 
-    public static IntSequence randomInts(int low, int high) {
-        class RandomSeq implements IntSequence {
-            
-            public int next() {
-                return low + generator.nextInt(high - low + 1);
-            }
-            public boolean hasNext() {
-                return true;
-            }
+    public static class RandomSeq implements IntSequence {
+        private int low;
+        private int high;
+
+        RandomSeq(int argLow, int argHigh) {
+            low = argLow;
+            high = argHigh;
         }
-        return new RandomSeq();
+        
+        public int next() {
+            return low + generator.nextInt(high - low + 1);
+        }
+        public boolean hasNext() {
+            return true;
+        }
+    }
+
+    public static IntSequence randomInts(int low, int high) {
+        return new RandomSeq(low, high);
     }
 
     public static void main(String[] args) {
