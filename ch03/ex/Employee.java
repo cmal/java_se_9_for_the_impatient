@@ -1,5 +1,9 @@
 package ch03.ex;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Comparator;
+
 public class Employee implements Measurable {
     private double salary;
     private String name;
@@ -69,18 +73,49 @@ public class Employee implements Measurable {
         }
         return cur;
     }
+
+    public String toString() {
+        return name + "\t" + salary;
+    }
     
     public static void main(String[] args) {
         
-        Measurable[] employees = new Measurable[]{
+        // Measurable[] employees = new Measurable[]{
+        //     new Employee("Tom", 5.0),
+        //     new Employee("Jack", 4.0),
+        //     new Employee("Simpson", 4.0),
+        //     new Employee("Alice", 4.0),
+        //     new Employee("Lee", 6.0)
+        // };
+
+        // System.out.println(average(employees));
+        // Employee employee = (Employee)largest(employees);
+        // System.out.println(employee.getName());
+
+        Employee[] staff = {
             new Employee("Tom", 5.0),
             new Employee("Jack", 4.0),
+            new Employee("Simpson", 4.0),
+            new Employee("Alice", 4.0),
             new Employee("Lee", 6.0)
         };
-
-        System.out.println(average(employees));
-        Employee employee = (Employee)largest(employees);
-        System.out.println(employee.getName());
+        
+        Comparator<Employee> comp = new Comparator<Employee>() {
+                @Override
+                public int compare(Employee e1, Employee e2) {
+                    double diffSalary = e1.salary - e2.salary;
+                    if (diffSalary == 0) {
+                        return e1.name.compareTo(e2.name);
+                    } else {
+                        return diffSalary < 0 ? -1 : 1;
+                    }
+                }
+            };
+        
+        Arrays.sort(staff, comp);
+        for (Employee e : staff) {
+            System.out.println(e);
+        }
     }
-
+    
 }
