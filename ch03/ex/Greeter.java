@@ -1,5 +1,7 @@
 package ch03.ex;
 
+import java.util.function.Function;
+
 public class Greeter implements Runnable {
 
     private int n;
@@ -29,13 +31,13 @@ public class Greeter implements Runnable {
         }
     }
 
-    public static Runnable returnRunnable(Runnable... tasks) {
-        return new Runnable () {
-            public void run() {
-                for (Runnable task : tasks) {
-                    task.run();
-                }
+    // https://stackoverflow.com/questions/29945627/java-8-lambda-void-argument
+    public static Function<Runnable[] , Void> returnRunnable() {
+        return (tasks) -> {
+            for (Runnable task : tasks) {
+                task.run();
             }
+            return null;
         };
     }
 
@@ -45,6 +47,7 @@ public class Greeter implements Runnable {
         Runnable g2 = new Greeter(100, "Jack");
         // runTogether(g1, g2);
         // runInOrder(g1, g2);
-        returnRunnable(g1, g2).run();
+        Function<Runnable[] , Void> r = returnRunnable();
+        r.apply(new Runnable[]{g1, g2});
     }
 }
