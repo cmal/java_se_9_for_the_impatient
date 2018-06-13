@@ -69,7 +69,9 @@ CLASSES = \
 	ch02/ex/Network.java \
 	ch02/ex/Invoice.java \
 	ch02/ex/Queue.java \
-	ch03/ex/Employee.java
+	ch03/ex/Employee.java \
+	ch03/ex/IntegerSequence.java \
+	ch03/ex/SquareSequence.java
 
 
 #
