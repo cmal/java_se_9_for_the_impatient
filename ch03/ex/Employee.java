@@ -9,6 +9,42 @@ public class Employee implements Measurable {
         salary = argSalary;
     }
 
+    /**
+     * Gets the value of salary
+     *
+     * @return the value of salary
+     */
+    public final double getSalary() {
+        return this.salary;
+    }
+
+    /**
+     * Sets the value of salary
+     *
+     * @param argSalary Value to assign to this.salary
+     */
+    public final void setSalary(final double argSalary) {
+        this.salary = argSalary;
+    }
+
+    /**
+     * Gets the value of name
+     *
+     * @return the value of name
+     */
+    public final String getName() {
+        return this.name;
+    }
+
+    /**
+     * Sets the value of name
+     *
+     * @param argName Value to assign to this.name
+     */
+    public final void setName(final String argName) {
+        this.name = argName;
+    }
+    
     public double getMeasure() {
         return 10 * salary;
     }
@@ -21,6 +57,18 @@ public class Employee implements Measurable {
         }
         return sum / cnt;
     }
+
+    public static Measurable largest(Measurable[] objects) {
+        double salary = -1;
+        Measurable cur = null;
+        for (Measurable obj : objects) {
+            Employee employee = (Employee)obj;
+            if (salary < employee.getSalary()) {
+                cur = (Measurable)employee;
+            }
+        }
+        return cur;
+    }
     
     public static void main(String[] args) {
         
@@ -31,7 +79,8 @@ public class Employee implements Measurable {
         };
 
         System.out.println(average(employees));
-        
+        Employee employee = (Employee)largest(employees);
+        System.out.println(employee.getName());
     }
 
 }
