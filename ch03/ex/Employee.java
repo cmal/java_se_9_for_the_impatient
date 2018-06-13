@@ -105,12 +105,12 @@ public class Employee implements Measurable {
                 public int compare(Employee e1, Employee e2) {
                     Double d1 = new Double(e1.salary);
                     Double d2 = new Double(e2.salary);
-                    return Double.compare(d1, d2);
+                    return -Double.compare(d1, d2);
                 }
             };
 
         Comparator<Employee> comp = compSalary
-            .thenComparing((e1, e2) -> e1.name.compareTo(e2.name));
+            .thenComparing((e1, e2) -> -e1.name.compareTo(e2.name));
         
         Arrays.sort(staff, comp);
         for (Employee e : staff) {
