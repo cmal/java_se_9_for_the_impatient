@@ -77,7 +77,8 @@ CLASSES = \
 	ch03/ex/Greeter.java \
 	ch03/ex/ListSubdirs.java \
 	ch03/ex/ListGivenExtension.java \
-	ch03/ex/SortFiles.java
+	ch03/ex/SortFiles.java \
+	ch03/ex/RandomSequence.java
 
 
 #
