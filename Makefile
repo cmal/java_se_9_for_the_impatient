@@ -74,7 +74,8 @@ CLASSES = \
 	ch03/ex/SquareSequence.java \
 	ch03/ex/DigitSequence.java \
 	ch03/ex/Lucky.java \
-	ch03/ex/Greeter.java
+	ch03/ex/Greeter.java \
+	ch03/ex/ListSubdirs.java
 
 
 #
