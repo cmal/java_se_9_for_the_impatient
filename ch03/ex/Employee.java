@@ -100,17 +100,17 @@ public class Employee implements Measurable {
             new Employee("Lee", 6.0)
         };
         
-        Comparator<Employee> comp = new Comparator<Employee>() {
+        Comparator<Employee> compSalary = new Comparator<Employee>() {
                 @Override
                 public int compare(Employee e1, Employee e2) {
-                    double diffSalary = e1.salary - e2.salary;
-                    if (diffSalary == 0) {
-                        return e1.name.compareTo(e2.name);
-                    } else {
-                        return diffSalary < 0 ? -1 : 1;
-                    }
+                    Double d1 = new Double(e1.salary);
+                    Double d2 = new Double(e2.salary);
+                    return Double.compare(d1, d2);
                 }
             };
+
+        Comparator<Employee> comp = compSalary
+            .thenComparing((e1, e2) -> e1.name.compareTo(e2.name));
         
         Arrays.sort(staff, comp);
         for (Employee e : staff) {
