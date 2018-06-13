@@ -68,7 +68,8 @@ CLASSES = \
 	ch02/ex/CSV.java \
 	ch02/ex/Network.java \
 	ch02/ex/Invoice.java \
-	ch02/ex/Queue.java
+	ch02/ex/Queue.java \
+	ch03/ex/Employee.java
 
 
 #
