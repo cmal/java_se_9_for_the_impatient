@@ -3,6 +3,10 @@ package ch02.ex;
 import java.util.ArrayList;
 
 public class Invoice {
+
+    // When a Nested Class
+    // has "static": Static Nested Class
+    // no "static": Inner Class
     private static class Item {
         // Item is nested inside Invoice
         private String description;

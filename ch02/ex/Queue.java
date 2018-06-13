@@ -9,9 +9,36 @@ public class Queue {
         }
     }
 
+    // here MUST be NON STATIC!
+    // Because Iterator must keep a reference
+    // to one of outer class's nodes
+    private class Iterator {
+        public Node current;
+        Iterator () {
+            current = head;
+        }
+        public Node next() {
+            if (!hasNext()) {
+                System.out.println("DO NOT has next!");
+                return null;
+            }
+            Node tmp = current;
+            current = current.next;
+            return tmp;
+        }
+        public boolean hasNext() {
+            return !(current == null);
+        }
+        public void reset() {
+            iter.current = head;
+        }
+    }
+
     private Node head;
     private int cnt = 0;
+    private Iterator iter;
     Queue() {
+        iter = new Iterator();
     }
 
     public void add(int argVal) {
@@ -28,6 +55,7 @@ public class Queue {
             cur.next = newNode;
         }
         cnt ++;
+        iter.reset();
         System.out.printf("%d added.\n", argVal);
     }
 
@@ -39,6 +67,7 @@ public class Queue {
         int ret = head.val;
         head = head.next;
         cnt --;
+        iter.reset();
         System.out.printf("Removed %d\n", ret);
         return ret;
     }
@@ -54,12 +83,25 @@ public class Queue {
         System.out.println();
     }
 
+    public Iterator iterator() {
+        return iter;
+    }
+
+    public void iterTraverse() {
+        Iterator it = new Iterator();
+        while (it.hasNext()) {
+            System.out.printf("<- %d ", it.next().val);
+        }
+        System.out.println();
+    }
+
     static public void main(String[] args) {
         Queue q = new Queue();
         q.add(3);
         q.add(4);
         q.add(5);
         q.traverse();
+        q.iterTraverse();
         int a = q.remove();
         int b = q.remove();
         int c = q.remove();
