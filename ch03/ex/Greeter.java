@@ -29,11 +29,22 @@ public class Greeter implements Runnable {
         }
     }
 
+    public static Runnable returnRunnable(Runnable... tasks) {
+        return new Runnable () {
+            public void run() {
+                for (Runnable task : tasks) {
+                    task.run();
+                }
+            }
+        };
+    }
+
 
     public static void main(String[] args) {
         Runnable g1 = new Greeter(100, "Tom");
         Runnable g2 = new Greeter(100, "Jack");
         // runTogether(g1, g2);
-        runInOrder(g1, g2);
+        // runInOrder(g1, g2);
+        returnRunnable(g1, g2).run();
     }
 }
