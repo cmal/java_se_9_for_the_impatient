@@ -6,10 +6,10 @@ import java.util.Objects;
 public class LabeledPoint extends Point {
 
     private String label;
-    
+
     LabeledPoint(String argLabel, double argX, double argY) {
         super(argX, argY);
-        this.label = argLabel;
+        label = argLabel;
     }
 
     /**
@@ -18,7 +18,7 @@ public class LabeledPoint extends Point {
      * @return the value of label
      */
     public final String getLabel() {
-        return this.label;
+        return label;
     }
 
     /**
@@ -31,11 +31,11 @@ public class LabeledPoint extends Point {
 
         sb.append(getClass().getName());
         sb.append("[");
-        sb.append("label=").append(this.getLabel());
+        sb.append("label=").append(label);
         sb.append(variableSeparator);
-        sb.append("x=").append(this.getX());
+        sb.append("x=").append(x);
         sb.append(variableSeparator);
-        sb.append("y=").append(this.getY());
+        sb.append("y=").append(y);
         sb.append("]");
 
         return sb.toString();
@@ -46,15 +46,15 @@ public class LabeledPoint extends Point {
         if (other == null) return false;
         if (getClass() != other.getClass()) return false;
         LabeledPoint lp = (LabeledPoint) other;
-        return getLabel() == lp.getLabel() &&
-            this.getX() == lp.getX() &&
-            this.getY() == lp.getY();
+        return label == lp.getLabel() &&
+            x == lp.getX() &&
+            y == lp.getY();
     }
 
     public int hashCode() {
-        return Objects.hash(this.getX(), this.getY(), this.getLabel());
+        return Objects.hash(x, y, label);
     }
-    
+
     public static void main(String[] args) {
         LabeledPoint lp = new LabeledPoint("label_1", 344, 24.5);
         Point p = new Point(277, 48.3);
@@ -71,6 +71,10 @@ public class LabeledPoint extends Point {
                           p.hashCode(),
                           lp.hashCode(),
                           lp2.hashCode());
+
+        // protected field can be accessed in subclass instances.
+        System.out.println(lp.x);
+
     }
 
 }
