@@ -82,7 +82,8 @@ CLASSES = \
 	ch04/ex/Circle.java \
 	ch04/ex/Rectangle.java \
 	ch04/ex/Line.java \
-	ch04/ex/DiscountedItem.java
+	ch04/ex/DiscountedItem.java \
+	ch04/ex/EnumColor.java
 
 
 #
