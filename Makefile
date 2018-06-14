@@ -85,7 +85,9 @@ CLASSES = \
 	ch04/ex/DiscountedItem.java \
 	ch04/ex/EnumColor.java \
 	ch04/ex/ClassMethods.java \
-	ch04/ex/UniversalToString.java
+	ch04/ex/UniversalToString.java \
+	ch04/ex/MethodPrinter.java \
+	ch04/ex/HelloWorld.java
 
 
 #
