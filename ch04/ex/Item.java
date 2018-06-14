@@ -1,5 +1,7 @@
 package ch04.ex;
 
+import java.util.Objects;
+
 public class Item {
     private String description;
     private double price;
@@ -15,9 +17,9 @@ public class Item {
         // if comment this:
         // if (getClass() != other.getClass()) return false;
         // and use this:
-        if (!other instanceof getClass()) return false;
+        if (!(other instanceof Item)) return false;
         Item p = (Item) other;
-        return Objects.equals(description, other.description)
-            && price == other.price;
+        return Objects.equals(description, p.description)
+            && price == p.price;
     }
 }
