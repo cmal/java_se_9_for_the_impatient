@@ -3,7 +3,7 @@ package ch04.ex;
 import ch04.ex.Point;
 import java.util.Objects;
 
-public class LabeledPoint extends Point {
+public class LabeledPoint extends Point implements Cloneable {
 
     private String label;
 
@@ -19,6 +19,10 @@ public class LabeledPoint extends Point {
      */
     public final String getLabel() {
         return label;
+    }
+
+    public final void setLabel(String argLabel) {
+        this.label = argLabel;
     }
 
     /**
@@ -55,6 +59,10 @@ public class LabeledPoint extends Point {
         return Objects.hash(x, y, label);
     }
 
+    public LabeledPoint clone() throws CloneNotSupportedException {
+        return new LabeledPoint(this.getLabel(), this.getX(), this.getY());
+    }
+
     public static void main(String[] args) {
         LabeledPoint lp = new LabeledPoint("label_1", 344, 24.5);
         Point p = new Point(277, 48.3);
@@ -74,7 +82,11 @@ public class LabeledPoint extends Point {
 
         // protected field can be accessed in subclass instances.
         System.out.println(lp.x);
-
+        try {
+            System.out.println(lp.clone());
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(ex);
+        }
     }
 
 }

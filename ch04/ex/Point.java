@@ -2,15 +2,15 @@ package ch04.ex;
 
 import java.util.Objects;
 
-public class Point {
-    private double x;
-    private double y;
+public class Point implements Cloneable {
+    protected double x;
+    protected double y;
 
-    Point(double argX, double argY) {
+    public Point(double argX, double argY) {
         x = argX;
         y = argY;
     }
-    
+
     /**
      * Gets the value of x
      *
@@ -27,6 +27,24 @@ public class Point {
      */
     public final double getY() {
         return this.y;
+    }
+
+    /**
+     * Sets the value of x
+     *
+     * @param argX Value to assign to this.x
+     */
+    public final void setX(final double argX) {
+        this.x = argX;
+    }
+
+    /**
+     * Sets the value of y
+     *
+     * @param argY Value to assign to this.y
+     */
+    public final void setY(final double argY) {
+        this.y = argY;
     }
 
     /**
@@ -58,5 +76,9 @@ public class Point {
 
     public int hashCode() {
         return Objects.hash(this.getX(), this.getY());
+    }
+
+    public Point clone() throws CloneNotSupportedException {
+        return new Point(x, y);
     }
 }
