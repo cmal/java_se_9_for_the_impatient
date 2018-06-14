@@ -12,7 +12,10 @@ public class Item {
     public boolean equals(Object other) {
         if (this == other) return true;
         if (other == null) return false;
-        if (getClass() != other.getClass()) return false;
+        // if comment this:
+        // if (getClass() != other.getClass()) return false;
+        // and use this:
+        if (!other instanceof getClass()) return false;
         Item p = (Item) other;
         return Objects.equals(description, other.description)
             && price == other.price;
