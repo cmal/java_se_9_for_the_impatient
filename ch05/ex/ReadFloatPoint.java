@@ -1,9 +1,15 @@
 package ch05.ex;
 
+// 5-1
 // Write a method public ArrayList<Double> readValues(String filename)
 // throws ... that reads a file containing floating-point
 // numbers. Throw appropriate exceptions if the file could not be
 // opened or if some of the inputs are not floating-point numbers.
+
+// 5-2
+// Write a method public double sumOfValues(String filename) throws
+// ... that calls the preceding method and returns the sum of the
+// values in the file. Propagate any exceptions to the caller.
 
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -23,11 +29,22 @@ public class ReadFloatPoint {
             return alist;
     }
 
+    public static double sumOfValues(String filename) throws IOException, NumberFormatException{
+        ArrayList<Double> alist;
+        alist = readValues(filename);
+        double sum = 0;
+        for (double d : alist) {
+            sum += d;
+        }
+        return sum;
+    }
+
     public static void main(String[] args) {
         try {
             ArrayList<Double> alist;
             alist = readValues("floating.txt");
             System.out.println(alist);
+            System.out.printf("SUM: %f\n", sumOfValues("floating.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NumberFormatException e) {
