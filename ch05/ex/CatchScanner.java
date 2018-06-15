@@ -15,31 +15,53 @@ package ch05.ex;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 
 
 public class CatchScanner {
     public static void catchScanner () {
+        Scanner in = new Scanner(System.in);
+        ArrayList<String> lines = new ArrayList<String> ();
         try{
-            Scanner in = new Scanner(System.in);
-            ArrayList<String> lines = new ArrayList<String> ();
             for (;;) {
-                if (inStr.hasNextLine()) {
-                    String inStr = in.nextLine();
-                    lines.add(inStr);
+                if (!in.hasNextLine()) break;
+                String inStr = in.nextLine();
+                if (inStr.length() == 0) {
+                    break;
                 }
+                lines.add(inStr);
             }
-            in.close();
-            PrintWriter out = new PrintWriter("output.txt");
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
+        }
+
+        PrintWriter out = null;
+        try{
+            out = new PrintWriter("output.txt");
             for (String line : lines) {
                 out.println(line.toLowerCase());
             }
-            out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
         }
     }
 
