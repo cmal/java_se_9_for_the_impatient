@@ -91,7 +91,9 @@ CLASSES = \
 	ch04/ex/PrintStaticDoubleMethods.java \
 	ch05/ex/ReadFloatPoint.java \
 	ch05/ex/CatchScanner.java \
-	ch05/ex/FinallyClause.java
+	ch05/ex/FinallyClause.java \
+	ch05/ex/Factorial.java \
+	ch05/ex/CompareAssert.java
 
 
 #
