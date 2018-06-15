@@ -37,10 +37,12 @@ public class CatchScanner {
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } finally {
-            try {
-                in.close();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -57,10 +59,12 @@ public class CatchScanner {
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } finally {
-            try {
-                out.close();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

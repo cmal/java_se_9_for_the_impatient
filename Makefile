@@ -90,7 +90,8 @@ CLASSES = \
 	ch04/ex/HelloWorld.java \
 	ch04/ex/PrintStaticDoubleMethods.java \
 	ch05/ex/ReadFloatPoint.java \
-	ch05/ex/CatchScanner.java
+	ch05/ex/CatchScanner.java \
+	ch05/ex/FinallyClause.java
 
 
 #
