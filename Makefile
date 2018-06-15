@@ -88,7 +88,8 @@ CLASSES = \
 	ch04/ex/UniversalToString.java \
 	ch04/ex/MethodPrinter.java \
 	ch04/ex/HelloWorld.java \
-	ch04/ex/PrintStaticDoubleMethods.java
+	ch04/ex/PrintStaticDoubleMethods.java \
+	ch05/ex/ReadFloatPoint.java
 
 
 #
