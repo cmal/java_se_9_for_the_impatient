@@ -22,7 +22,7 @@ public class ReadFloatPoint {
             reader.close();
             return alist;
     }
-p
+
     public static void main(String[] args) {
         try {
             ArrayList<Double> alist;
