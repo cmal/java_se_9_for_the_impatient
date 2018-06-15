@@ -7,7 +7,7 @@ public class ReentrantAutoCloseLock extends ReentrantLock {
     public class AutoCloseableLock implements AutoCloseable {
         public void close() {
             try {
-                this.super.unlock();
+                ReentrantAutoCloseLock.super.unlock();
             } catch (IllegalMonitorStateException e) {
                 e.printStackTrace();
             }
