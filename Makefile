@@ -93,7 +93,9 @@ CLASSES = \
 	ch05/ex/CatchScanner.java \
 	ch05/ex/FinallyClause.java \
 	ch05/ex/Factorial.java \
-	ch05/ex/CompareAssert.java
+	ch05/ex/CompareAssert.java \
+	ch05/ex/AssertMin.java \
+	ch05/ex/ReentrantAutoCloseLock.java
 
 
 #
