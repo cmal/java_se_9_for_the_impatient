@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class ImprovedCloseAll {
 
-    private int count = 0;
-    private Exception ex;
+    private static int count = 0;
+    private static Exception ex;
 
     public static <T extends AutoCloseable> void closeAll(ArrayList<T> elems)
         throws Exception {
