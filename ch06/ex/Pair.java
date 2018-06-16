@@ -1,7 +1,7 @@
 package ch06.ex;
 
-public class Pair<E extends Comparable> {
-// public class Pair<E> {
+// public class Pair<E extends Comparable> {
+public class Pair<E> {
     private E k;
     private E v;
 
@@ -18,13 +18,13 @@ public class Pair<E extends Comparable> {
         return v;
     }
 
-    public E min() {
-        return k.compareTo(v) < 0 ? k : v;
-    }
+    // public E min() {
+    //     return k.compareTo(v) < 0 ? k : v;
+    // }
 
-    public E max() {
-        return k.compareTo(v) < 0 ? v : k;
-    }
+    // public E max() {
+    //     return k.compareTo(v) < 0 ? v : k;
+    // }
 
     public static void main(String[] args) {
         String a = "A";
@@ -32,7 +32,7 @@ public class Pair<E extends Comparable> {
         Pair<String> p = new Pair<String>(a, b);
         System.out.println(p.getFirst());
         System.out.println(p.getSecond());
-        System.out.println(p.min());
-        System.out.println(p.max());
+        // System.out.println(p.min());
+        // System.out.println(p.max());
     }
 }
