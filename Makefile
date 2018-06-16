@@ -101,7 +101,9 @@ CLASSES = \
 	ch06/ex/StackArray.java \
 	ch06/ex/Table.java \
 	ch06/ex/TableNested.java \
-	ch06/ex/Arrays.java
+	ch06/ex/Arrays.java \
+	ch06/ex/AppendToAnother.java \
+	ch06/ex/Pair.java
 
 #
 # the default make target entry
