@@ -3,6 +3,7 @@ package ch06.ex;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
+import ch06.ex.Lists;
 
 public class MinMax {
     public static <T> void minmax(List<T> elements,
@@ -22,6 +23,13 @@ public class MinMax {
         result.add(max);
     }
 
+    public static <T> void maxmin(List<T> elements,
+                                  Comparator<? super T> comp,
+                                  List<? super T> result) {
+        minmax(elements, comp, result);
+        Lists.swapHelper(result, 0, 1);
+    }
+
     public static void main(String[] args) {
         ArrayList<String> lst = new ArrayList<String>();
         ArrayList<Object> res = new ArrayList<Object>();
@@ -30,6 +38,9 @@ public class MinMax {
         lst.add("C");
         lst.add("1");
         minmax(lst, (a, b) -> a.compareTo(b), res);
+        System.out.println(res.get(0));
+        System.out.println(res.get(1));
+        maxmin(lst, (a, b) -> a.compareTo(b), res);
         System.out.println(res.get(0));
         System.out.println(res.get(1));
     }
