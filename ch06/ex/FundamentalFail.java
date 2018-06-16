@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.function.IntFunction;
 import java.lang.reflect.*;
+import java.lang.annotation.*;
 
 public class FundamentalFail {
 
@@ -38,6 +39,38 @@ public class FundamentalFail {
         return Arrays.copyOf(arr, n);
     }
 
+    public static String genericDeclaration(Method m) {
+        // TYPE
+        TypeVariable<Method>[] types = m.getTypeParameters();
+        String typeStr = "<";
+        for (TypeVariable<Method> type : types) {
+            typeStr += type.getName();
+            typeStr += ",";
+        }
+        if (types.length > 0)
+            typeStr = typeStr.substring(0, typeStr.length() - 1);
+        typeStr += "> ";
+
+        // RETURN TYPE
+        AnnotatedType at = m.getAnnotatedReturnType();
+        typeStr += at.getType().getTypeName();
+        typeStr += " ";
+        typeStr += m.getName();
+
+        // PARAM LIST
+        Type[] tps = m.getGenericParameterTypes();
+        typeStr += "(";
+        for (Type tp : tps) {
+            typeStr += tp.getTypeName();
+            typeStr += ", ";
+        }
+        if (tps.length > 0)
+            typeStr = typeStr.substring(0, typeStr.length() - 2);
+        typeStr += ")";
+
+        return typeStr;
+    }
+
     public static void main(String[] args) {
         Integer[] ints = repeat(10, 1, Integer[]::new);
         Integer[] ints2 = repeat(3, 1, 2, 3);
@@ -50,5 +83,15 @@ public class FundamentalFail {
         for (List<String> ls : lst) {
             System.out.println(ls);
         }
+        try {
+            Method m = FundamentalFail.class.getMethod("repeat", int.class, Object.class, IntFunction.class);
+            String dec = genericDeclaration(m);
+            System.out.println(dec);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }
