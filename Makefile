@@ -108,7 +108,8 @@ CLASSES = \
 	ch06/ex/ImprovedCloseAll.java \
 	ch06/ex/Map.java \
 	ch06/ex/Employee.java \
-	ch06/ex/FundamentalFail.java
+	ch06/ex/FundamentalFail.java \
+	ch06/ex/ExtendsThrowable.java
 
 #
 # the default make target entry
