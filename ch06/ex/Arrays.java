@@ -17,9 +17,33 @@ public class Arrays {
         return values;
     }
 
-    public static <E> Pair<E> firstLast(ArrayList<? super E> a) {
+    public static <E extends Comparable> Pair<E> firstLast(ArrayList<? extends E> a) {
         int len = a.size();
         return new Pair(a.get(0), a.get(len - 1));
+    }
+
+    public static <E extends Comparable> E min(ArrayList<? extends E> a)  {
+        E tmp = a.get(0);
+        for (E e : a) {
+            if (e.compareTo(tmp) < 0) {
+                tmp = e;
+            }
+        }
+        return tmp;
+    }
+
+    public static <E extends Comparable> E max(ArrayList<? extends E> a) {
+        E tmp = a.get(0);
+        for (E e : a) {
+            if (e.compareTo(tmp) > 0) {
+                tmp = e;
+            }
+        }
+        return tmp;
+    }
+
+    public static <E extends Comparable> Pair<E> minMax(ArrayList<? extends E> a) {
+        return new Pair(min(a), max(a));
     }
 
     public static void main(String[] args) {
@@ -35,5 +59,11 @@ public class Arrays {
         arr.add(3.0);
         Pair<Double> p = firstLast(arr);
         System.out.printf("%f, %f\n", p.getFirst(), p.getSecond());
+
+        Pair<Double> mp = minMax(arr);
+        System.out.printf("MIN: %f\n", min(arr));
+        System.out.printf("MAX: %f\n", max(arr));
+        System.out.printf("PAIR MIN: %f\n", mp.getFirst());
+        System.out.printf("PAIR MAX: %f\n", mp.getSecond());
     }
 }
