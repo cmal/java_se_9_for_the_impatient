@@ -96,8 +96,10 @@ CLASSES = \
 	ch05/ex/CompareAssert.java \
 	ch05/ex/AssertMin.java \
 	ch05/ex/ReentrantAutoCloseLock.java \
-	ch05/ex/TestLogger.java
-
+	ch05/ex/TestLogger.java \
+	ch06/ex/StackArrayList.java \
+	ch06/ex/StackArray.java \
+	ch06/ex/Table.java
 
 #
 # the default make target entry
