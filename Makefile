@@ -103,7 +103,8 @@ CLASSES = \
 	ch06/ex/TableNested.java \
 	ch06/ex/Arrays.java \
 	ch06/ex/AppendToAnother.java \
-	ch06/ex/Pair.java
+	ch06/ex/Pair.java \
+	ch06/ex/MinMax.java
 
 #
 # the default make target entry
