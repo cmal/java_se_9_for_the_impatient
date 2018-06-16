@@ -99,7 +99,9 @@ CLASSES = \
 	ch05/ex/TestLogger.java \
 	ch06/ex/StackArrayList.java \
 	ch06/ex/StackArray.java \
-	ch06/ex/Table.java
+	ch06/ex/Table.java \
+	ch06/ex/TableNested.java \
+	ch06/ex/Arrays.java
 
 #
 # the default make target entry
