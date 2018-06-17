@@ -5,8 +5,8 @@ import java.util.*;
 public class WhatHappens {
 
     // MUST USE THIS:
-    // public static void WhatHappens(Map<String, ? extends Set<Integer>> mp) {
-    public static void WhatHappens(Map<String, Set<Integer>> mp) {
+    public static void WhatHappens(Map<String, ? extends Set<Integer>> mp) {
+    // public static void WhatHappens(Map<String, Set<Integer>> mp) {
         return;
     }
 
