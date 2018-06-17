@@ -116,7 +116,8 @@ CLASSES = \
 	ch07/ex/ConCurrentMod.java \
 	ch07/ex/EfficientSwap.java \
 	ch07/ex/WhatHappens.java \
-	ch07/ex/ReadWords.java
+	ch07/ex/ReadWords.java \
+	ch07/ex/Merge.java
 
 #
 # the default make target entry
