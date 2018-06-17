@@ -114,7 +114,8 @@ CLASSES = \
 	ch07/ex/UpperString.java \
 	ch07/ex/SetOps.java \
 	ch07/ex/ConCurrentMod.java \
-	ch07/ex/EfficientSwap.java
+	ch07/ex/EfficientSwap.java \
+	ch07/ex/WhatHappens.java
 
 #
 # the default make target entry
