@@ -109,7 +109,8 @@ CLASSES = \
 	ch06/ex/Map.java \
 	ch06/ex/Employee.java \
 	ch06/ex/FundamentalFail.java \
-	ch06/ex/ExtendsThrowable.java
+	ch06/ex/ExtendsThrowable.java \
+	ch07/ex/SieveErathostenes.java
 
 #
 # the default make target entry
