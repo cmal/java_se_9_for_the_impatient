@@ -113,7 +113,8 @@ CLASSES = \
 	ch07/ex/SieveErathostenes.java \
 	ch07/ex/UpperString.java \
 	ch07/ex/SetOps.java \
-	ch07/ex/ConCurrentMod.java
+	ch07/ex/ConCurrentMod.java \
+	ch07/ex/EfficientSwap.java
 
 #
 # the default make target entry
