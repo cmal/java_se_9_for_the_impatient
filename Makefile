@@ -110,7 +110,9 @@ CLASSES = \
 	ch06/ex/Employee.java \
 	ch06/ex/FundamentalFail.java \
 	ch06/ex/ExtendsThrowable.java \
-	ch07/ex/SieveErathostenes.java
+	ch07/ex/SieveErathostenes.java \
+	ch07/ex/UpperString.java \
+	ch07/ex/SetOps.java
 
 #
 # the default make target entry
