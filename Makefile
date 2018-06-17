@@ -120,7 +120,8 @@ CLASSES = \
 	ch07/ex/Merge.java \
 	ch07/ex/Dijkstra.java \
 	ch07/ex/Shuffle.java \
-	ch07/ex/ShuffleSentence.java
+	ch07/ex/ShuffleSentence.java \
+	ch07/ex/Cache.java
 
 #
 # the default make target entry
