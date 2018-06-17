@@ -112,7 +112,8 @@ CLASSES = \
 	ch06/ex/ExtendsThrowable.java \
 	ch07/ex/SieveErathostenes.java \
 	ch07/ex/UpperString.java \
-	ch07/ex/SetOps.java
+	ch07/ex/SetOps.java \
+	ch07/ex/ConCurrentMod.java
 
 #
 # the default make target entry
