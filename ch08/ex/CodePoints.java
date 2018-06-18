@@ -35,6 +35,10 @@ public class CodePoints {
             occurExactlyOneTime(s, "u");
     }
 
+    public static <T> boolean isFinite(Stream<T> stream) {
+        return Long.MAX_VALUE != stream.spliterator().estimateSize();
+    }
+
     public static void main(String[] args) {
         try {
             String contents = new String(Files.readAllBytes(Paths.get("words.txt")),
@@ -81,10 +85,20 @@ public class CodePoints {
             mp1.entrySet().stream().sorted(Map.Entry.comparingByKey((i,j) -> j - i))
                 .limit(1).forEach(System.out::println);
 
+            tokens = new Scanner(dict).tokens();
+            System.out.printf("isFinite: %b\n", isFinite(tokens)); // false
+
+            tokens = new Scanner(file).tokens();
+            System.out.printf("isFinite: %b\n", isFinite(tokens)); // false
+
+            var finiteFile = new File("finally.txt");
+            tokens = new Scanner(file).tokens();
+            System.out.printf("isFinite: %b\n", isFinite(tokens)); // false
+
+            System.out.printf("isFinite: %b\n", isFinite(words.stream())); // true
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 }
