@@ -141,7 +141,7 @@ public class CodePoints {
         return lst;
     }
 
-    public static Stream<BigInteger> FiftyDecimalPrime(BigInteger start, BigInteger limit) {
+    public static Stream<BigInteger> fiftyDecimalPrime(BigInteger start, BigInteger limit) {
         return Stream.iterate(start,
                               bigInt -> !bigInt.equals(limit),
                               bigInt -> bigInt.add(BigInteger.ONE))
@@ -149,8 +149,17 @@ public class CodePoints {
             .limit(500);
     }
 
-    public static Stream<BigInteger> FiftyDecimalPrimeParallel(BigInteger start, BigInteger limie) {
-        return FiftyDecimalPrime(start, limie).parallel();
+    public static Stream<BigInteger> fiftyDecimalPrimeParallel(BigInteger start, BigInteger limit) {
+        return fiftyDecimalPrime(start, limit).parallel();
+    }
+
+    public static Stream<Integer> eliminateAdjacentDup(Stream<Integer> stream) {
+        final Integer[] previous = { Integer.MIN_VALUE };
+        return stream.filter(t -> {
+                boolean isDifferent = !t.equals(previous[0]);
+                previous[0] = t;
+                return isDifferent;
+            });
     }
 
     public static void main(String[] args) {
@@ -263,8 +272,8 @@ public class CodePoints {
             // which will not be acceptable.
 
             // 8-16
-            // FiftyDecimalPrime().forEach(System.out::println);
-            // FiftyDecimalPrimeParallel().forEach(System.out::println);
+            // fiftyDecimalPrime().forEach(System.out::println);
+            // fiftyDecimalPrimeParallel().forEach(System.out::println);
             String s = "1";
             for (int i = 0; i < 49; i ++) {
                 s = s + "0";
@@ -273,8 +282,8 @@ public class CodePoints {
             BigInteger start = new BigInteger(s);
             BigInteger limit = new BigInteger(limitS);
 
-            var prime = FiftyDecimalPrime(start, limit);
-            var primeP = FiftyDecimalPrime(start, limit).parallel();
+            var prime = fiftyDecimalPrime(start, limit);
+            var primeP = fiftyDecimalPrime(start, limit).parallel();
 
             var startTime = System.currentTimeMillis();
             var count1 = primeP.count();
@@ -298,6 +307,33 @@ public class CodePoints {
                               count1, count2, midTime - startTime, endTime - midTime1);
             System.out.println("Parallel MAYBE slow!");
 
+            // tokens = new Scanner(file).tokens();
+            // System.out.println(tokens.distinct().count());
+            // tokens = new Scanner(file).tokens();
+            // System.out.println(tokens.parallel().distinct().count());
+            // tokens = new Scanner(dict).tokens();
+            // System.out.println(tokens.distinct().count());
+            // tokens = new Scanner(dict).tokens();
+            // System.out.println(tokens.parallel().distinct().count());
+
+            var intList = new ArrayList<Integer>();
+            intList.add(1);
+            intList.add(1);
+            intList.add(1);
+            intList.add(1);
+            intList.add(2);
+            intList.add(2);
+            intList.add(2);
+            intList.add(2);
+            intList.add(1);
+            intList.add(1);
+            intList.add(2);
+            intList.add(3);
+            intList.add(3);
+            intList.add(2);
+            intList.add(3);
+            intList.add(3);
+            eliminateAdjacentDup(intList.stream()).forEach(System.out::println);
 
         } catch (Exception e) {
             e.printStackTrace();
