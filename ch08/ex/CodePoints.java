@@ -7,6 +7,7 @@ import java.io.*;
 import java.nio.*;
 import java.nio.charset.*;
 import java.nio.file.*;
+// import java.util.Map.Entry;
 
 public class CodePoints {
 
@@ -21,17 +22,12 @@ public class CodePoints {
         return s.codePoints().reduce(0, (cur, next) -> Character.isAlphabetic(next) ? cur : cur + 1) == 0;
     }
 
-    public static <T> void print(Stream<T> stream) {
-        System.out.println(Arrays.asList(stream.toArray()));
-    }
-
     public static void main(String[] args) {
         try {
             String contents = new String(Files.readAllBytes(Paths.get("words.txt")),
                                          StandardCharsets.UTF_8);
             List<String> words = List.of(contents.split("\n"));
-            var stream = words.stream().flatMap(w -> codePoints(w)).limit(100);
-            print(stream);
+            words.stream().flatMap(w -> codePoints(w)).limit(10).forEach(System.out::println);
             System.out.println(isLetterOnlyWord("word"));
             System.out.println(isLetterOnlyWord("中国"));
             System.out.println(isLetterOnlyWord("not alphabetic"));
@@ -44,7 +40,18 @@ public class CodePoints {
             var file = new File("words.txt");
             var tokens = new Scanner(file).tokens(); // Stream<String>
 
-            print(tokens.filter(s -> isLetterOnlyWord(s)).limit(100));
+            tokens.filter(s -> isLetterOnlyWord(s)).limit(10).forEach(System.out::println);
+
+            tokens = new Scanner(file).tokens();
+            var mp = tokens.collect(Collectors
+                                    .toMap(s -> s.toLowerCase(), // produce keys
+                                           s -> 1,
+                                           (a, b) -> a + b)
+                                    );
+
+            mp.entrySet().stream().sorted(Map.Entry.comparingByValue((i,j) -> j - i))
+                .limit(20).forEach(System.out::println);
+
 
         } catch (Exception e) {
             e.printStackTrace();
