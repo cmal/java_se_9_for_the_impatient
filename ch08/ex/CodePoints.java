@@ -22,6 +22,19 @@ public class CodePoints {
         return s.codePoints().reduce(0, (cur, next) -> Character.isAlphabetic(next) ? cur : cur + 1) == 0;
     }
 
+    public static boolean occurExactlyOneTime(String s, String vowel) {
+        return s.indexOf(vowel) != -1 && s.indexOf(vowel) == s.lastIndexOf(vowel);
+    }
+
+    public static boolean containFiveDistinctVowels(String s) {
+        var ss = s.toLowerCase();
+        return occurExactlyOneTime(s, "a") &&
+            occurExactlyOneTime(s, "e") &&
+            occurExactlyOneTime(s, "i") &&
+            occurExactlyOneTime(s, "o") &&
+            occurExactlyOneTime(s, "u");
+    }
+
     public static void main(String[] args) {
         try {
             String contents = new String(Files.readAllBytes(Paths.get("words.txt")),
@@ -40,7 +53,7 @@ public class CodePoints {
             var file = new File("words.txt");
             var tokens = new Scanner(file).tokens(); // Stream<String>
 
-            tokens.filter(s -> isLetterOnlyWord(s)).limit(10).forEach(System.out::println);
+            tokens.filter(CodePoints::isLetterOnlyWord).limit(10).forEach(System.out::println);
 
             tokens = new Scanner(file).tokens();
             var mp = tokens.collect(Collectors
@@ -52,6 +65,13 @@ public class CodePoints {
             mp.entrySet().stream().sorted(Map.Entry.comparingByValue((i,j) -> j - i))
                 .limit(20).forEach(System.out::println);
 
+
+            var dict = new File("/usr/share/dict/words");
+            tokens = new Scanner(dict).tokens();
+            tokens.filter(CodePoints::containFiveDistinctVowels)
+                .forEach(System.out::println);
+
+            // System.out.println(tokens.filter(CodePoints::containFiveDistinctVowels).count());
 
         } catch (Exception e) {
             e.printStackTrace();
