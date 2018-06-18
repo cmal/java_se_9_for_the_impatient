@@ -122,7 +122,10 @@ CLASSES = \
 	ch07/ex/Shuffle.java \
 	ch07/ex/ShuffleSentence.java \
 	ch07/ex/Cache.java \
-	ch07/ex/ImmutableListView.java
+	ch07/ex/ImmutableListView.java \
+	ch07/ex/ImmutableListViewIntFunc.java \
+	ch08/ex/Filter.java \
+	ch08/ex/Parallel.java
 
 #
 # the default make target entry
