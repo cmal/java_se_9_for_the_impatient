@@ -59,8 +59,7 @@ public class CodePoints {
             var mp = tokens.collect(Collectors
                                     .toMap(s -> s.toLowerCase(), // produce keys
                                            s -> 1,
-                                           (a, b) -> a + b)
-                                    );
+                                           (a, b) -> a + b));
 
             mp.entrySet().stream().sorted(Map.Entry.comparingByValue((i,j) -> j - i))
                 .limit(20).forEach(System.out::println);
@@ -76,6 +75,11 @@ public class CodePoints {
             tokens = new Scanner(dict).tokens();
             double average = tokens.collect(Collectors.summarizingInt(String::length)).getAverage();
             System.out.printf("Average length: %f\n", average);
+
+            tokens = new Scanner(dict).tokens();
+            var mp1 = tokens.collect(Collectors.groupingBy(String::length));
+            mp1.entrySet().stream().sorted(Map.Entry.comparingByKey((i,j) -> j - i))
+                .limit(1).forEach(System.out::println);
 
         } catch (Exception e) {
             e.printStackTrace();
