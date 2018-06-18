@@ -77,6 +77,61 @@ public class CodePoints {
             });
     }
 
+    public static <T> ArrayList<T> join1(Stream<ArrayList<T>> stream) {
+        return stream.reduce((a, b) -> {
+                a.addAll(b);
+                return a;
+            }).get();
+    }
+
+    public static <T> ArrayList<T> join2(Stream<ArrayList<T>> stream) {
+        return stream.reduce(new ArrayList<T>(),
+                             (a, b) -> {
+                                 a.addAll(b);
+                                 return a;
+                             });
+    }
+
+    public static <T> ArrayList<T> join3(Stream<ArrayList<T>> stream) {
+
+        // combiner is only needed for parallel streams, to combine
+        // the accumulated results of threads
+        return stream.reduce(new ArrayList<T>(),
+                             (a, b) -> {
+                                 a.addAll(b);
+                                 return a;
+                             },
+                             (a, b) -> {
+                                 a.addAll(b);
+                                 return a;
+                             });
+
+    }
+
+    public static ArrayList<String> buildList1() {
+        var lst = new ArrayList<String>();
+        lst.add("A");
+        lst.add("B");
+        return lst;
+    }
+
+    public static ArrayList<String> buildList2() {
+        var lst = new ArrayList<String>();
+        lst.add("a");
+        lst.add("b");
+        lst.add("z");
+        return lst;
+    }
+
+    public static ArrayList<String> buildList3() {
+        var lst = new ArrayList<String>();
+        lst.add(".");
+        lst.add(",");
+        lst.add(":");
+        lst.add(";");
+        return lst;
+    }
+
     public static void main(String[] args) {
         try {
             String contents = new String(Files.readAllBytes(Paths.get("words.txt")),
@@ -141,6 +196,38 @@ public class CodePoints {
                 .limit(30)
                 .forEach(System.out::println);
 
+            var lst1 = buildList1();
+            var lst2 = buildList2();
+            var lst3 = buildList3();
+
+            var lst = new ArrayList<ArrayList<String>>();
+            lst.add(lst1);
+            lst.add(lst2);
+            lst.add(lst3);
+
+            join1(lst.stream()).forEach(System.out::println);
+            System.out.println("-----");
+            // lst, lst1 are changed
+
+            lst = new ArrayList<ArrayList<String>>();
+            lst1 = buildList1();
+            lst2 = buildList2();
+            lst3 = buildList3();
+            lst.add(lst1);
+            lst.add(lst2);
+            lst.add(lst3);
+            join2(lst.stream()).forEach(System.out::println);
+
+            System.out.println("-----");
+
+            lst = new ArrayList<ArrayList<String>>();
+            lst1 = buildList1();
+            lst2 = buildList2();
+            lst3 = buildList3();
+            lst.add(lst1);
+            lst.add(lst2);
+            lst.add(lst3);
+            join3(lst.stream()).forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();
         }
