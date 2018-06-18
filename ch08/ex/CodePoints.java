@@ -92,6 +92,15 @@ public class CodePoints {
                              });
     }
 
+    public static double average(Stream<Double> stream) {
+        var iter = IntStream.iterate(0, i -> i + 1).iterator();
+        var sum = stream.reduce(0.0, (acc, cur) -> {
+                iter.next();
+                return acc + cur;
+            });
+        return sum / iter.next();
+    }
+
     public static <T> ArrayList<T> join3(Stream<ArrayList<T>> stream) {
 
         // combiner is only needed for parallel streams, to combine
@@ -228,6 +237,19 @@ public class CodePoints {
             lst.add(lst2);
             lst.add(lst3);
             join3(lst.stream()).forEach(System.out::println);
+
+            // 8-15
+            ArrayList<Double> db = new ArrayList<>();
+            db.add(1.0);
+            db.add(2.0);
+            db.add(3.0);
+            System.out.println(average(db.stream()));
+
+            // the question of 8-15
+            // because the stream will be consumed after compute sum,
+            // and cannot count(), unless one build the stream again,
+            // which will not be acceptable.
+
         } catch (Exception e) {
             e.printStackTrace();
         }
