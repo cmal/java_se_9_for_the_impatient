@@ -73,6 +73,10 @@ public class CodePoints {
 
             // System.out.println(tokens.filter(CodePoints::containFiveDistinctVowels).count());
 
+            tokens = new Scanner(dict).tokens();
+            double average = tokens.collect(Collectors.summarizingInt(String::length)).getAverage();
+            System.out.printf("Average length: %f\n", average);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
