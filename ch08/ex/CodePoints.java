@@ -284,6 +284,21 @@ public class CodePoints {
             System.out.printf("count1: %d, count2: %d, time1: %d, time2: %d\n",
                               count1, count2, midTime - startTime, endTime - midTime);
             System.out.println("Parallel is SLOW!");
+
+            tokens = new Scanner(dict).tokens();
+            Comparator<String> compareByLength = (b, a) -> a.length() - b.length();
+            startTime = System.currentTimeMillis();
+            count2 = tokens.sorted(compareByLength).limit(500).parallel().count();
+            midTime = System.currentTimeMillis();
+            tokens = new Scanner(dict).tokens();
+            var midTime1 = System.currentTimeMillis();
+            count1 = tokens.sorted(compareByLength).limit(500).count();
+            endTime = System.currentTimeMillis();
+            System.out.printf("count1: %d, count2: %d, time1: %d, time2: %d\n",
+                              count1, count2, midTime - startTime, endTime - midTime1);
+            System.out.println("Parallel MAYBE slow!");
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
