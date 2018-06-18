@@ -126,7 +126,8 @@ CLASSES = \
 	ch07/ex/ImmutableListViewIntFunc.java \
 	ch08/ex/Filter.java \
 	ch08/ex/Parallel.java \
-	ch08/ex/StreamInteger.java
+	ch08/ex/StreamInteger.java \
+	ch08/ex/CodePoints.java
 
 #
 # the default make target entry
