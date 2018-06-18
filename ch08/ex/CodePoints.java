@@ -141,6 +141,18 @@ public class CodePoints {
         return lst;
     }
 
+    public static Stream<BigInteger> FiftyDecimalPrime(BigInteger start, BigInteger limit) {
+        return Stream.iterate(start,
+                              bigInt -> !bigInt.equals(limit),
+                              bigInt -> bigInt.add(BigInteger.ONE))
+            .filter(bigInt -> bigInt.isProbablePrime(99))
+            .limit(500);
+    }
+
+    public static Stream<BigInteger> FiftyDecimalPrimeParallel(BigInteger start, BigInteger limie) {
+        return FiftyDecimalPrime(start, limie).parallel();
+    }
+
     public static void main(String[] args) {
         try {
             String contents = new String(Files.readAllBytes(Paths.get("words.txt")),
@@ -250,6 +262,28 @@ public class CodePoints {
             // and cannot count(), unless one build the stream again,
             // which will not be acceptable.
 
+            // 8-16
+            // FiftyDecimalPrime().forEach(System.out::println);
+            // FiftyDecimalPrimeParallel().forEach(System.out::println);
+            String s = "1";
+            for (int i = 0; i < 49; i ++) {
+                s = s + "0";
+            }
+            String limitS = s + "0";
+            BigInteger start = new BigInteger(s);
+            BigInteger limit = new BigInteger(limitS);
+
+            var prime = FiftyDecimalPrime(start, limit);
+            var primeP = FiftyDecimalPrime(start, limit).parallel();
+
+            var startTime = System.currentTimeMillis();
+            var count1 = primeP.count();
+            var midTime = System.currentTimeMillis();
+            var count2 = prime.count();
+            var endTime = System.currentTimeMillis();
+            System.out.printf("count1: %d, count2: %d, time1: %d, time2: %d\n",
+                              count1, count2, midTime - startTime, endTime - midTime);
+            System.out.println("Parallel is SLOW!");
         } catch (Exception e) {
             e.printStackTrace();
         }
