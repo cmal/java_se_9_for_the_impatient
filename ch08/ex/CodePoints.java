@@ -39,6 +39,44 @@ public class CodePoints {
         return Long.MAX_VALUE != stream.spliterator().estimateSize();
     }
 
+    public static <T> Stream<T> zip(Stream<T> first, Stream<T> second) {
+        Iterator<T> iterFirst = first.iterator();
+        Iterator<T> iterSecond = second.iterator();
+        // boolean flag = false;
+        // T init = null;
+        // if (iterFirst.hasNext()) {
+        //     init = iterFirst.next();
+        //     flag = false;
+        // } else if (iterSecond.hasNext()) {
+        //     init = iterSecond.next();
+        //     flag = true;
+        // } else {
+        //     return Stream.empty();
+        // }
+
+        // return Stream.iterate(init,
+        // // NOT WORK BECAUSE错误: 从lambda 表达式引用的本地变量必须
+        // // 是最终变量或实际上的最终变量
+        //                       a -> iterFirst.hasNext() || iterSecond.hasNext(),
+        //                       a -> {
+        //                           if (flag) {
+        //                               return iterFirst.hasNext() ? iterFirst.next() : null;
+        //                           } else {
+        //                               return iterSecond.hasNext() ? iterSecond.next() : null;
+        //                           }
+        //                       });
+
+        // will produce INFINITE elements
+        IntStream s = IntStream.iterate(0, i -> 1 - i);
+        return s.mapToObj(i -> {
+                if (i == 0) {
+                    return iterFirst.hasNext() ? iterFirst.next() : null;
+                } else {
+                    return iterSecond.hasNext() ? iterSecond.next() : null;
+                }
+            });
+    }
+
     public static void main(String[] args) {
         try {
             String contents = new String(Files.readAllBytes(Paths.get("words.txt")),
@@ -91,11 +129,18 @@ public class CodePoints {
             tokens = new Scanner(file).tokens();
             System.out.printf("isFinite: %b\n", isFinite(tokens)); // false
 
-            var finiteFile = new File("finally.txt");
-            tokens = new Scanner(file).tokens();
+            var finallyFile = new File("finally.txt");
+            tokens = new Scanner(finallyFile).tokens();
             System.out.printf("isFinite: %b\n", isFinite(tokens)); // false
 
             System.out.printf("isFinite: %b\n", isFinite(words.stream())); // true
+
+            var floatingFile = new File("floating.txt");
+            zip(new Scanner(finallyFile).tokens(),
+                new Scanner(floatingFile).tokens())
+                .limit(30)
+                .forEach(System.out::println);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
