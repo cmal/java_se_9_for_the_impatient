@@ -127,6 +127,8 @@ CLASSES = \
 	ch08/ex/Parallel.java \
 	ch08/ex/StreamInteger.java \
 	ch08/ex/CodePoints.java \
+	ch09/ex/CopyInputToOutput.java \
+	ch09/ex/Toc.java \
 	ch10/ex/FindFile.java
 
 #
