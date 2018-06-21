@@ -129,6 +129,8 @@ CLASSES = \
 	ch08/ex/CodePoints.java \
 	ch09/ex/CopyInputToOutput.java \
 	ch09/ex/Toc.java \
+	ch09/ex/WhichCharset.java \
+	ch09/ex/BufferedReaderVsScanner.java \
 	ch10/ex/FindFile.java
 
 #
