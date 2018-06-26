@@ -23,6 +23,7 @@ public class ReadAllWords {
     }
 
     public void addWord(String word, File file) {
+        // first approach:
         // if (chm.get(word) == null) {
         //     HashSet<File> set = new HashSet<>();
         //     set.add(file);
@@ -30,12 +31,17 @@ public class ReadAllWords {
         // } else {
         //     chm.get(word).add(file);
         // }
-        HashSet<File> set = new HashSet<>();
-        set.add(file);
-        chm.merge(word, set, (s1, s2) -> {
-                s1.addAll(s2);
-                return s1;
-            });
+
+        // second: with a merge method:
+        // HashSet<File> set = new HashSet<>();
+        // set.add(file);
+        // chm.merge(word, set, (s1, s2) -> {
+        //         s1.addAll(s2);
+        //         return s1;
+        //     });
+
+        // third: with computeIfAbsent
+        chm.computeIfAbsent(word, w -> new HashSet<File>()).add(file);
     }
 
     public class AddWordThread extends Thread {
