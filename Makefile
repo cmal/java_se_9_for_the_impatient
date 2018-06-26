@@ -138,6 +138,7 @@ CLASSES = \
 	ch10/ex/EscapingThis.java \
 	ch10/ex/ReadAllWords.java \
 	ch10/ex/MaxKey.java \
+	ch10/ex/AtomicLongVsLongAddr.java \
 	#ch09/ex/RandomAccessBMP.java \
 
 #
