@@ -131,7 +131,8 @@ CLASSES = \
 	ch09/ex/Toc.java \
 	ch09/ex/WhichCharset.java \
 	ch09/ex/BufferedReaderVsScanner.java \
-	ch10/ex/FindFile.java
+	ch10/ex/FindFile.java \
+	ch10/ex/HowLargeFaster.java
 	#ch09/ex/RandomAccessBMP.java \
 
 #
