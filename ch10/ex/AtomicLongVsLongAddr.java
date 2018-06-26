@@ -34,21 +34,35 @@ public class AtomicLongVsLongAddr {
     }
 
     public static void main(String[] args) {
-        AtomicLongVsLongAddr vs = new AtomicLongVsLongAddr();
-        long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i ++) {
-            (vs.new AtomicLongThread()).start();
+        try{
+            long startTime;
+            long endTime;
+            AtomicLongVsLongAddr vs = new AtomicLongVsLongAddr();
+            Thread[] t = new Thread[1000];
+            for (int i = 0; i < 1000; i ++) {
+                t[i] = vs.new AtomicLongThread();
+            }
+            startTime = System.currentTimeMillis();
+            for (int i = 0; i < 1000; i ++) {
+                t[i].start();
+                t[i].join();
+            }
+            endTime = System.currentTimeMillis();
+            System.out.printf("AtomicLong--Number: %s, Time: %d\n", vs.al, endTime - startTime);
+            for (int i = 0; i < 1000; i ++) {
+                t[i] = vs.new LongAdderThread();
+            }
+            startTime = System.currentTimeMillis();
+            for (int i = 0; i < 1000; i ++) {
+                t[i].start();
+                t[i].join();
+            }
+            long res = vs.la.sum();
+            endTime = System.currentTimeMillis();
+            System.out.printf("LongAdder--Number: %s, Time: %d\n", res, endTime - startTime);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        long endTime = System.currentTimeMillis();
-        System.out.printf("AtomicLong--Number: %s, Time: %d\n", vs.al, endTime - startTime);
-        startTime = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i ++) {
-            (vs.new LongAdderThread()).start();
-        }
-        long res = vs.la.sum();
-        endTime = System.currentTimeMillis();
-        System.out.printf("LongAdder--Number: %s, Time: %d\n", res, endTime - startTime);
-        
     }
 
 }
