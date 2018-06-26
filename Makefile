@@ -134,7 +134,8 @@ CLASSES = \
 	ch10/ex/FindFile.java \
 	ch10/ex/HowLargeFaster.java \
 	ch10/ex/FindWord.java \
-	ch10/ex/ParallelPrefix.java
+	ch10/ex/ParallelPrefix.java \
+	ch10/ex/EscapingThis.java \
 	#ch09/ex/RandomAccessBMP.java \
 
 #
