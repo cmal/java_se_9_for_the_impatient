@@ -137,6 +137,7 @@ CLASSES = \
 	ch10/ex/ParallelPrefix.java \
 	ch10/ex/EscapingThis.java \
 	ch10/ex/ReadAllWords.java \
+	ch10/ex/MaxKey.java \
 	#ch09/ex/RandomAccessBMP.java \
 
 #
