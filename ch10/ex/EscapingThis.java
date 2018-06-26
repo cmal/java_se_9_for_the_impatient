@@ -15,6 +15,7 @@ public class EscapingThis {
     // refer to this:
     // https://wiki.sei.cmu.edu/confluence/display/java/TSM01-J.+Do+not+let+the+this+reference+escape+during+object+construction
 
+    // TODO
     public static EscapingThis ethis;
     final int num; // make this class immutable
     private EscapingThis(int number) {

@@ -136,6 +136,7 @@ CLASSES = \
 	ch10/ex/FindWord.java \
 	ch10/ex/ParallelPrefix.java \
 	ch10/ex/EscapingThis.java \
+	ch10/ex/ReadAllWords.java \
 	#ch09/ex/RandomAccessBMP.java \
 
 #
