@@ -30,7 +30,7 @@ public class BlockingQueueSearchFile {
     // 14. Use an ExecutorCompletionService instead and merge the
     // results as soon as they become available.
 
-    //15. Repeat the preceding exercise, using a global
+    // 15. Repeat the preceding exercise, using a global
     // ConcurrentHashMap for collecting the word frequencies.
 
     // 16. Repeat the preceding exercise, using parallel streams. None
@@ -158,18 +158,22 @@ public class BlockingQueueSearchFile {
 
         BlockingQueueSearchFile b = new BlockingQueueSearchFile();
 
-        ExecutorService executor = Executors.newCachedThreadPool();
+        ExecutorService exectr = Executors.newCachedThreadPool();
         WalkThread tWalk = b.new WalkThread();
-        executor.submit(tWalk);
+        exectr.submit(tWalk);
 
         List<Callable<Map<String, Integer>>> tasks = new ArrayList<>();
 
+        ExecutorCompletionService<Map<String, Integer>> executor = new ExecutorCompletionService<>(exectr);
+
+        int count = 0;
         try {
             while(true) {
                 File f = b.lbq.take();
                 if (f.getPath() == "dummy") {
                     break;
                 }
+                count ++;
                 // RemoveAndCompileThread t = b.new RemoveAndCompileThread(f);
                 Callable<Map<String, Integer>> task = () -> {
                     HashMap<String, Integer> hm = new HashMap<>();
@@ -189,26 +193,36 @@ public class BlockingQueueSearchFile {
                     }
                     return hm;
                 };
-                tasks.add(task);
+                executor.submit(task);
+                // tasks.add(task);
             }
 
             // the final thread
-            List<Future<Map<String, Integer>>> results = executor.invokeAll(tasks);
+            // List<Future<Map<String, Integer>>> results = executor.invokeAll(tasks);
             HashMap<String, Integer> total = new HashMap<>();
-            results.stream().forEach(ft -> {
-                    try {
-                        total.putAll(ft.get());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            // results.stream().forEach(ft -> {
+            //         try {
+            //             total.putAll(ft.get());
+            //         } catch (Exception e) {
+            //             e.printStackTrace();
+            //         }
                     
-                });
+            //     });
+            for (int i = 0; i < count; i ++) {
+                Map<String, Integer> m = executor.take().get();
+                try {
+                    total.putAll(m);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
             TreeSet<Map.Entry<String, Integer>> ts = sortEntries(total);
             for (int i = 0; i < 10; i ++) {
                 System.out.println(ts.pollLast());
             }
 
-            executor.shutdown();
+            exectr.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
         }
