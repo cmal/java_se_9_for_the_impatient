@@ -38,6 +38,7 @@ public class BlockingQueueSearchFile {
 
     public LinkedBlockingQueue<File> lbq = new LinkedBlockingQueue<>();
     public LinkedBlockingQueue<HashMap<String, Integer>> hmq = new LinkedBlockingQueue<>();
+    public ConcurrentHashMap<String, Integer> chm = new ConcurrentHashMap<>();
 
     public class WalkThread extends Thread {
         @Override
@@ -164,7 +165,7 @@ public class BlockingQueueSearchFile {
 
         List<Callable<Map<String, Integer>>> tasks = new ArrayList<>();
 
-        ExecutorCompletionService<Map<String, Integer>> executor = new ExecutorCompletionService<>(exectr);
+        ExecutorCompletionService<Void> executor = new ExecutorCompletionService<>(exectr);
 
         int count = 0;
         try {
@@ -175,8 +176,8 @@ public class BlockingQueueSearchFile {
                 }
                 count ++;
                 // RemoveAndCompileThread t = b.new RemoveAndCompileThread(f);
-                Callable<Map<String, Integer>> task = () -> {
-                    HashMap<String, Integer> hm = new HashMap<>();
+                Callable<Void> task = () -> {
+                    // HashMap<String, Integer> hm = new HashMap<>();
                     try {
                         BufferedReader br = new BufferedReader(new FileReader(f));
                         String line;
@@ -185,13 +186,13 @@ public class BlockingQueueSearchFile {
                         while ((line = br.readLine()) != null) {
                             Matcher m = r.matcher(line);
                             while(m.find()) {
-                                hm.compute(m.group(), (k, v) -> (v == null) ? 1 : v + 1);
+                                b.chm.compute(m.group(), (k, v) -> (v == null) ? 1 : v + 1);
                             }
                         }
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
-                    return hm;
+                    return null;
                 };
                 executor.submit(task);
                 // tasks.add(task);
@@ -199,7 +200,7 @@ public class BlockingQueueSearchFile {
 
             // the final thread
             // List<Future<Map<String, Integer>>> results = executor.invokeAll(tasks);
-            HashMap<String, Integer> total = new HashMap<>();
+            // HashMap<String, Integer> total = new HashMap<>();
             // results.stream().forEach(ft -> {
             //         try {
             //             total.putAll(ft.get());
@@ -208,16 +209,16 @@ public class BlockingQueueSearchFile {
             //         }
                     
             //     });
-            for (int i = 0; i < count; i ++) {
-                Map<String, Integer> m = executor.take().get();
-                try {
-                    total.putAll(m);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            // for (int i = 0; i < count; i ++) {
+            //     Map<String, Integer> m = executor.take().get();
+            //     try {
+            //         total.putAll(m);
+            //     } catch (Exception e) {
+            //         e.printStackTrace();
+            //     }
+            // }
 
-            TreeSet<Map.Entry<String, Integer>> ts = sortEntries(total);
+            TreeSet<Map.Entry<String, Integer>> ts = sortEntries(b.chm);
             for (int i = 0; i < 10; i ++) {
                 System.out.println(ts.pollLast());
             }
