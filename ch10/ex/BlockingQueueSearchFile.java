@@ -136,22 +136,24 @@ public class BlockingQueueSearchFile {
 
 
     public class MergeThread extends Thread {
-        private HashMap<String, Integer> hm;
         // private SortedSet<Map.Entry<String, Integer>> ss;
         MergeThread() {
             super();
-            hm = new HashMap<>();
             // ss = new SortedSet<>();
         }
         
         @Override
         public void run() {
             // merge hmq print 10 most frequent word
-            hmq.forEach(hm::putAll);
+
+            HashMap<String, Integer> hm = new HashMap<>();
+
+            hmq.forEach(m -> m.entrySet().stream().forEach(entry -> hm.merge(entry.getKey(), entry.getValue(), Integer::sum)));
             TreeSet<Map.Entry<String, Integer>> ts = sortEntries(hm);
             for (int i = 0; i < 10; i ++) {
                 System.out.println(ts.pollLast());
             }
+            System.out.println(hmq.size());
         }
     }
     
