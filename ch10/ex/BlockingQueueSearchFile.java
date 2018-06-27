@@ -119,6 +119,21 @@ public class BlockingQueueSearchFile {
         }
     }
 
+    public static TreeSet<Map.Entry<String, Integer>> sortEntries(Map<String, Integer> m) {
+        TreeSet<Map.Entry<String, Integer>> result = new
+            TreeSet<Map.Entry<String, Integer>>(new
+                                                Comparator<Map.Entry<String, Integer>>() {
+                    @Override
+                    public int compare(Map.Entry<String, Integer> e1,
+                                       Map.Entry<String, Integer> e2) {
+                        return e1.getValue().compareTo(e2.getValue());
+                    }
+                });
+        result.addAll(m.entrySet());
+        return result;
+    }
+
+
     public class MergeThread extends Thread {
         private HashMap<String, Integer> hm;
         // private SortedSet<Map.Entry<String, Integer>> ss;
@@ -126,20 +141,6 @@ public class BlockingQueueSearchFile {
             super();
             hm = new HashMap<>();
             // ss = new SortedSet<>();
-        }
-
-        TreeSet<Map.Entry<String, Integer>> sortEntries(Map<String, Integer> m) {
-            TreeSet<Map.Entry<String, Integer>> result = new
-                TreeSet<Map.Entry<String, Integer>>(new
-                                                    Comparator<Map.Entry<String, Integer>>() {
-                        @Override
-                        public int compare(Map.Entry<String, Integer> e1,
-                                           Map.Entry<String, Integer> e2) {
-                            return e1.getValue().compareTo(e2.getValue());
-                        }
-                    });
-            result.addAll(m.entrySet());
-            return result;
         }
         
         @Override
@@ -161,22 +162,53 @@ public class BlockingQueueSearchFile {
         WalkThread tWalk = b.new WalkThread();
         executor.submit(tWalk);
 
+        List<Callable<Map<String, Integer>>> tasks = new ArrayList<>();
+
         try {
             while(true) {
                 File f = b.lbq.take();
                 if (f.getPath() == "dummy") {
                     break;
                 }
-                RemoveAndCompileThread t = b.new RemoveAndCompileThread(f);
-                executor.submit(t);
+                // RemoveAndCompileThread t = b.new RemoveAndCompileThread(f);
+                Callable<Map<String, Integer>> task = () -> {
+                    HashMap<String, Integer> hm = new HashMap<>();
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(f));
+                        String line;
+                        String pattern = "(\\w+)";
+                        Pattern r = Pattern.compile(pattern);
+                        while ((line = br.readLine()) != null) {
+                            Matcher m = r.matcher(line);
+                            while(m.find()) {
+                                hm.compute(m.group(), (k, v) -> (v == null) ? 1 : v + 1);
+                            }
+                        }
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                    return hm;
+                };
+                tasks.add(task);
             }
 
             // the final thread
-            
-            MergeThread t = b.new MergeThread();
-            executor.submit(t);
-            executor.shutdown();
+            List<Future<Map<String, Integer>>> results = executor.invokeAll(tasks);
+            HashMap<String, Integer> total = new HashMap<>();
+            results.stream().forEach(ft -> {
+                    try {
+                        total.putAll(ft.get());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    
+                });
+            TreeSet<Map.Entry<String, Integer>> ts = sortEntries(total);
+            for (int i = 0; i < 10; i ++) {
+                System.out.println(ts.pollLast());
+            }
 
+            executor.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
         }
