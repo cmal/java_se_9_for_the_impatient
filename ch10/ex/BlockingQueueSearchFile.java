@@ -161,26 +161,21 @@ public class BlockingQueueSearchFile {
 
         BlockingQueueSearchFile b = new BlockingQueueSearchFile();
 
-        ExecutorService exectr = Executors.newCachedThreadPool();
         WalkThread tWalk = b.new WalkThread();
-        exectr.submit(tWalk);
-
-        List<Callable<Map<String, Integer>>> tasks = new ArrayList<>();
-
-        ExecutorCompletionService<Void> executor = new ExecutorCompletionService<>(exectr);
-
-        int count = 0;
         try {
-            while(true) {
-                File f = b.lbq.take();
+            tWalk.start();
+            tWalk.join();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        b.lbq.parallelStream().map(f -> {
+                HashMap<String, Integer> hm = new HashMap<>();
                 if (f.getPath() == "dummy") {
-                    break;
+                    return hm;
                 }
-                count ++;
-                // RemoveAndCompileThread t = b.new RemoveAndCompileThread(f);
-                Callable<Void> task = () -> {
-                    // HashMap<String, Integer> hm = new HashMap<>();
-                    try {
+
+                try {
                         BufferedReader br = new BufferedReader(new FileReader(f));
                         String line;
                         String pattern = "(\\w+)";
@@ -188,47 +183,24 @@ public class BlockingQueueSearchFile {
                         while ((line = br.readLine()) != null) {
                             Matcher m = r.matcher(line);
                             while(m.find()) {
-                                b.chm.compute(m.group(), (k, v) -> (v == null) ? 1 : v + 1);
+                                hm.compute(m.group(), (k, v) -> (v == null) ? 1 : v + 1);
                             }
                         }
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
-                    return null;
-                };
-                executor.submit(task);
-                // tasks.add(task);
-            }
+                return hm;
+            })
+            .reduce((cur, next) -> {
+                    next.entrySet().stream().forEach(entry -> cur.merge(entry.getKey(), entry.getValue(), Integer::sum));
+                    return cur;
+                })
+            .ifPresent(cm -> {
+                    TreeSet<Map.Entry<String, Integer>> ts = sortEntries(cm);
+                    for (int i = 0; i < 10; i ++) {
+                        System.out.println(ts.pollLast());
+                    }
 
-            // the final thread
-            // List<Future<Map<String, Integer>>> results = executor.invokeAll(tasks);
-            // HashMap<String, Integer> total = new HashMap<>();
-            // results.stream().forEach(ft -> {
-            //         try {
-            //             Map<String, Integer> hm = ft.get();
-            //             hm.entrySet().stream().forEach(entry -> total.merge(entry.getKey(), entry.getValue(), Integer::sum));
-            //         } catch (Exception e) {
-            //             e.printStackTrace();
-            //         }
-                    
-            //     });
-            // for (int i = 0; i < count; i ++) {
-            //     Map<String, Integer> m = executor.take().get();
-            //     try {
-            //         m.entrySet().stream().forEach(entry -> total.merge(entry.getKey(), entry.getValue(), Integer::sum));
-            //     } catch (Exception e) {
-            //         e.printStackTrace();
-            //     }
-            // }
-
-            TreeSet<Map.Entry<String, Integer>> ts = sortEntries(b.chm);
-            for (int i = 0; i < 10; i ++) {
-                System.out.println(ts.pollLast());
-            }
-
-            exectr.shutdown();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                });
     }
 }
