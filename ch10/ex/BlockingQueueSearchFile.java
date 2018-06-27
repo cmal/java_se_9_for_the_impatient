@@ -205,7 +205,8 @@ public class BlockingQueueSearchFile {
             // HashMap<String, Integer> total = new HashMap<>();
             // results.stream().forEach(ft -> {
             //         try {
-            //             total.putAll(ft.get());
+            //             Map<String, Integer> hm = ft.get();
+            //             hm.entrySet().stream().forEach(entry -> total.merge(entry.getKey(), entry.getValue(), Integer::sum));
             //         } catch (Exception e) {
             //             e.printStackTrace();
             //         }
