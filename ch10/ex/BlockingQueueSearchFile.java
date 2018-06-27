@@ -215,7 +215,7 @@ public class BlockingQueueSearchFile {
             // for (int i = 0; i < count; i ++) {
             //     Map<String, Integer> m = executor.take().get();
             //     try {
-            //         total.putAll(m);
+            //         m.entrySet().stream().forEach(entry -> total.merge(entry.getKey(), entry.getValue(), Integer::sum));
             //     } catch (Exception e) {
             //         e.printStackTrace();
             //     }
