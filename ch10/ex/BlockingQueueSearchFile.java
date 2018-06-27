@@ -6,6 +6,7 @@ import java.nio.file.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
 import java.util.stream.*;
+import java.util.regex.*;
 
 public class BlockingQueueSearchFile {
 
@@ -36,6 +37,7 @@ public class BlockingQueueSearchFile {
     // of the stream operations should have any side effects.
 
     public LinkedBlockingQueue<File> lbq = new LinkedBlockingQueue<>();
+    public LinkedBlockingQueue<HashMap<String, Integer>> hmq = new LinkedBlockingQueue<>();
 
     public class WalkThread extends Thread {
         @Override
@@ -82,6 +84,74 @@ public class BlockingQueueSearchFile {
             }
         }
     }
+
+    public class RemoveAndCompileThread extends Thread {
+        private HashMap<String, Integer> hm;
+        private File f;
+
+        RemoveAndCompileThread(File f) {
+            super();
+            this.f = f;
+            this.hm = new HashMap<>();
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(f));
+                String line;
+                String pattern = "(\\w+)";
+                Pattern r = Pattern.compile(pattern);
+                while ((line = br.readLine()) != null) {
+                    Matcher m = r.matcher(line);
+                    while(m.find()) {
+                        addWord(m.group());
+                    }
+                }
+                hmq.put(hm);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void addWord(String word) {
+            hm.compute(word, (k, v) -> (v == null) ? 1 : v + 1);
+        }
+    }
+
+    public class MergeThread extends Thread {
+        private HashMap<String, Integer> hm;
+        // private SortedSet<Map.Entry<String, Integer>> ss;
+        MergeThread() {
+            super();
+            hm = new HashMap<>();
+            // ss = new SortedSet<>();
+        }
+
+        TreeSet<Map.Entry<String, Integer>> sortEntries(Map<String, Integer> m) {
+            TreeSet<Map.Entry<String, Integer>> result = new
+                TreeSet<Map.Entry<String, Integer>>(new
+                                                    Comparator<Map.Entry<String, Integer>>() {
+                        @Override
+                        public int compare(Map.Entry<String, Integer> e1,
+                                           Map.Entry<String, Integer> e2) {
+                            return e1.getValue().compareTo(e2.getValue());
+                        }
+                    });
+            result.addAll(m.entrySet());
+            return result;
+        }
+        
+        @Override
+        public void run() {
+            // merge hmq print 10 most frequent word
+            hmq.forEach(hm::putAll);
+            TreeSet<Map.Entry<String, Integer>> ts = sortEntries(hm);
+            for (int i = 0; i < 10; i ++) {
+                System.out.println(ts.pollLast());
+            }
+        }
+    }
     
     public static void main(String[] args) {
 
@@ -95,12 +165,18 @@ public class BlockingQueueSearchFile {
             while(true) {
                 File f = b.lbq.take();
                 if (f.getPath() == "dummy") {
-                    executor.shutdown();
                     break;
                 }
-                RemoveAndSearchThread t = b.new RemoveAndSearchThread(f);
+                RemoveAndCompileThread t = b.new RemoveAndCompileThread(f);
                 executor.submit(t);
             }
+
+            // the final thread
+            
+            MergeThread t = b.new MergeThread();
+            executor.submit(t);
+            executor.shutdown();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
