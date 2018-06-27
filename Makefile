@@ -140,6 +140,7 @@ CLASSES = \
 	ch10/ex/MaxKey.java \
 	ch10/ex/AtomicLongVsLongAddr.java \
 	ch10/ex/LongAccumulatorMax.java \
+	ch10/ex/BlockingQueueSearchFile.java \
 	#ch09/ex/RandomAccessBMP.java \
 
 #
