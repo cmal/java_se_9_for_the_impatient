@@ -143,6 +143,7 @@ CLASSES = \
 	ch10/ex/BlockingQueueSearchFile.java \
 	ch10/ex/ThreadedCountWord.java \
 	ch10/ex/WrongStack.java \
+	ch10/ex/DisplayLinks.java \
 	#ch09/ex/RandomAccessBMP.java \
 
 #
