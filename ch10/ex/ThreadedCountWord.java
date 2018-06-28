@@ -119,14 +119,19 @@ public class ThreadedCountWord {
         // this MAY get inconsistent results
         try {
             count = 0;
-            ExecutorService executor = Executors.newCachedThreadPool();
+            ArrayList<Thread> ts = new ArrayList<>();
             s.forEach(p -> {
                     CountWordThread t = new CountWordThread(p.toFile());
                     t.start();
-                    executor.submit(t);
+                    ts.add(t);
                 });
-            executor.shutdown();
-            executor.awaitTermination(60, TimeUnit.SECONDS);
+            ts.stream().forEach(t -> {
+                    try {
+                        t.join();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             System.out.printf("(NoLock) count: %d\n", count);
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,16 +143,22 @@ public class ThreadedCountWord {
         // this SHOULD NOT generate in-consistent results
         try {
             count = 0;
-            ExecutorService executor = Executors.newCachedThreadPool();
+            ArrayList<Thread> ts = new ArrayList<>();
             s.forEach(p -> {
                     CountWordLockThread t = new CountWordLockThread(p.toFile());
                     t.start();
-                    executor.submit(t);
+                    ts.add(t);
                 });
-            executor.shutdown();
-            executor.awaitTermination(60, TimeUnit.SECONDS);
-            System.out.printf("(Lock) count: %d\n", count);
+            ts.stream().forEach(t -> {
+                    try {
+                        t.join();   
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
             
+                });
+            System.out.printf("(Lock) count: %d\n", count);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,14 +168,19 @@ public class ThreadedCountWord {
         // this SHOULD NOT generate in-consistent results
         try {
             count = 0;
-            ExecutorService executor = Executors.newCachedThreadPool();
+            ArrayList<Thread> ts = new ArrayList<>();
             s.forEach(p -> {
                     CountWordLongAdderThread t = new CountWordLongAdderThread(p.toFile());
                     t.start();
-                    executor.submit(t);
+                    ts.add(t);
                 });
-            executor.shutdown();
-            executor.awaitTermination(60, TimeUnit.SECONDS);
+            ts.stream().forEach(t -> {
+                    try {
+                        t.join();   
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             System.out.printf("(LongAdder) count: %d\n", la.sum());
             la.reset();
         } catch (Exception e) {
@@ -184,8 +200,8 @@ public class ThreadedCountWord {
                                            && Files.isReadable(p));
                 ThreadedCountWord tcw = new ThreadedCountWord();
                 // tcw.runThreads(s); // this MAY get inconsistent results
-                tcw.runThreadsWithLock(s); // this SHOULD NOT get inconsistent results
-                // tcw.runThreadsWithLongAdder(s); // this SHOULD NOT get inconsistent results
+                // tcw.runThreadsWithLock(s); // this SHOULD NOT get inconsistent results
+                tcw.runThreadsWithLongAdder(s); // this SHOULD NOT get inconsistent results
             }
         } catch (Exception e) {
             e.printStackTrace();
