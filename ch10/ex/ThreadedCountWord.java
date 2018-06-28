@@ -10,17 +10,17 @@ import java.util.stream.*;
 import java.util.regex.*;
 
 public class ThreadedCountWord {
-    // 1. Write a program that walks a directory tree and generates a
+    // 17. Write a program that walks a directory tree and generates a
     // thread for each file. In the threads, count the number of words
     // in the files and, without using locks, update a shared counter
     // that is declared as public static long count = 0;
 
     // Run the program multiple times. What happens? Why?
 
-    // 2. Fix the program of the preceding exercise with using a
+    // 18. Fix the program of the preceding exercise with using a
     // lock.
 
-    // 3. Fix the program of the preceding exercise with using a
+    // 19. Fix the program of the preceding exercise with using a
     // LongAdder.
 
     public long count = 0;

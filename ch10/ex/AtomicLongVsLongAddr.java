@@ -41,20 +41,20 @@ public class AtomicLongVsLongAddr {
             Thread[] t = new Thread[1000];
             for (int i = 0; i < 1000; i ++) {
                 t[i] = vs.new AtomicLongThread();
+                t[i].start();
             }
             startTime = System.currentTimeMillis();
             for (int i = 0; i < 1000; i ++) {
-                t[i].start();
                 t[i].join();
             }
             endTime = System.currentTimeMillis();
             System.out.printf("AtomicLong--Number: %s, Time: %d\n", vs.al, endTime - startTime);
             for (int i = 0; i < 1000; i ++) {
                 t[i] = vs.new LongAdderThread();
+                t[i].start();
             }
             startTime = System.currentTimeMillis();
             for (int i = 0; i < 1000; i ++) {
-                t[i].start();
                 t[i].join();
             }
             long res = vs.la.sum();
