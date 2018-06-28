@@ -10,6 +10,10 @@ import java.util.regex.*;
 import java.net.*;
 import jdk.incubator.http.*;
 
+// Compile: javac -g --add-modules jdk.incubator.httpclient ch10/ex/DisplayLinks.java
+// Run: java --add-modules jdk.incubator.httpclient ch10/ex/DisplayLinks
+
+
 public class DisplayLinks {
     
     // 25. Write a program that asks the user for a URL, reads the web
