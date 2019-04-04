@@ -144,8 +144,7 @@ CLASSES = \
 	ch10/ex/ThreadedCountWord.java \
 	ch10/ex/WrongStack.java \
 	ch10/ex/RepeatUntil.java \
-	ch10/ex/ModifiedCompletableFuture.java \
-	#ch09/ex/RandomAccessBMP.java \
+	geeksforgeeks/Cov.java
 
 #
 # the default make target entry
